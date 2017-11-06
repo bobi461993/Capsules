@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex bbl format version 2.8 $
+% $ biblatex bbl format version 2.9 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -16,5 +16,23 @@
   {}
 \endgroup
 
-\sortlist[entry]{nty/global/}\endsortlist
+\datalist[entry]{nty/global//global/global}
+  \entry{affNIST}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=auA}{%
+         prefix={at},
+         prefixi={a\bibinitperiod},
+         family={\url{http://www.cs.toronto.edu/\~tijmen/affNIST/}},
+         familyi={u\bibinitperiod},
+         given={Available},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{uAa1}
+    \strng{fullhash}{uAa1}
+    \field{labelnamesource}{author}
+    \field{sortinit}{U}
+    \field{sortinithash}{U}
+  \endentry
+\enddatalist
 \endinput
