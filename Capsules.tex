@@ -16,7 +16,7 @@
 \author[Mu\c sat Bogdan-Adrian]{Authors: Sara Sabour, Nicholas Frosst, Geoffrey E Hinton}
 \date{November 2017}
 
-\beamertemplatenavigationsymbolsempty
+        \beamertemplatenavigationsymbolsempty
 \graphicspath{{./images/}}
 
 \begin{document}
@@ -38,7 +38,7 @@
 \center
 \begin{itemize}
 	\item The human vision processes only a tiny fraction of the optic array at the highest resolution
-	\item Assumption that the visual system creates a parse tree on each fixation
+	\item Assumption that the visual system creates a parse tree (Fig. a) on each fixation
 	\begin{figure}
 	\subcapcentertrue
     \centering
@@ -144,7 +144,7 @@ where \(T_c = 1\) iff a digit of class \(c\) is present and \(m^+ = 0.9\) and \(
     \end{figure}
    
 \begin{itemize}
-	\item Shallow network with only two convolutional layers and one fully connected layer
+	\item Shallow network with only two convolutional layers and one fully connected layer (Fig. b)
 	\item Routing is implemented only between PrimaryCaps and DigitCaps layers
 \end{itemize}    
 \end{frame}
@@ -158,7 +158,7 @@ where \(T_c = 1\) iff a digit of class \(c\) is present and \(m^+ = 0.9\) and \(
         {\includegraphics[width=0.6\textwidth]{reconstruction.png}}
     \end{figure}
    
-An additional reconstruction loss is used to encourage the digit capsules to encode the instantiation parameters of the input digit. The output of the correct digit capsule is fed into a decoder consisting of 3 fully connected layers that model the pixel intensities. The objective function is the sum of squared differences between the outputs of the logistic units and the pixel intensities. This loss is scaled by 0.0005 so that it does not dominate the margin loss during training.
+An additional reconstruction loss is used to encourage the digit capsules to encode the instantiation parameters of the input digit. The output of the correct digit capsule is fed into a decoder consisting of 3 fully connected layers that model the pixel intensities (Fig. c). The objective function is the sum of squared differences between the outputs of the logistic units and the pixel intensities. This loss is scaled by 0.0005 so that it does not dominate the margin loss during training.
 \end{frame}
 
 \begin{frame}
@@ -186,7 +186,7 @@ The baseline is a standard CNN with three convolutional layers of 256, 256, 128 
 \frametitle{What the individual dimensions of a capsule represent}
 \begin{itemize}
 	\item The dimensions of a digit capsule should learn to span the space of variations in the way digits of that class are instantiated (stroke thickness, skew and width)
-	\item To see what the individual dimensions represent, a perturbed output vector can be fed to the decoder network to see how the perturbation affects the reconstruction
+	\item To see what the individual dimensions represent, a perturbed output vector can be fed to the decoder network to see how the perturbation affects the reconstruction (Fig. f)
 \end{itemize}
 \begin{figure}
     \centering
@@ -210,6 +210,70 @@ The baseline is a standard CNN with three convolutional layers of 256, 256, 128 
 \begin{itemize}
 	\item Dynamic routing can be viewed as a parallel attention mechanism that allows each capsule at one level to attend to some active capsules at the level below and to ignore others; This should allow the model to recognize multiple object in the image even if objects overlap
 	\item To test this assumption, the MultiMNIST dataset was created by overlaying a digit on top of another from the same set, but different class, having 80\% average overlap
+	\item During reconstruction, a digit is picked one at a time and use the activity vector of the chosen digit capsule to reconstruct the image of the chosen digit (Fig. g)
+	\item The fact that it is able to reconstruct digits regardless of the overlap shows that each digit capsule can pick up the style and position from the votes it is receiving from PrimaryCapsules layer
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Segmenting highly overlapping digits}
+\begin{figure}
+    \centering
+    	\subfigure[Sample reconstruction of a CapsNet on MultiMNIST test dataset]
+        {\includegraphics[width=0.75\textwidth]{segmenting.png}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Other datasets}
+\begin{itemize}
+	\item On CIFAR10, the network achieved 10.6\% error with an ensemble of 7 models; 10.6\% test error is about what standard convolutional nets achieved when they were first applied to CIFAR10 \footcite{DBLP:journals/corr/abs-1301-3557}
+	\item The network was also tested on smallNORB \footcite{LeCun:2004:LMG:1896300.1896315} and achieved 2.7\% test error rate, which is in-par with the state-of-the-art \footcite{DBLP:journals/corr/abs-1102-0183}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conclusion}
+\begin{itemize}
+	\item Convolutional neural networks suffer from the difficulty of generalizing to novel viewpoints. Capsules avoid this issue by converting pixel intensities into vectors of instantiation parameters of recognized fragments and then applying transformation matrices to the fragments to predict the instantiation parameters of larger fragments. Transformation matrices that learn to encode the intrinsic spatial relationship between a part and a whole constitute viewpoint invariant knowledge that automatically generalizes to novel viewpoints.
+	\item Capsules can deal with multiple different affine transformations of different objects or object parts at the same time; they are also very good for dealing with segmentation.
+	\item Research on capsules is now at a similar stage to research on recurrent neural networks for speech recognition at the beginning of this century.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Public implementations}
+\begin{itemize}
+	\item Tensorflow: \url{https://github.com/naturomics/CapsNet-Tensorflow}
+	\item Pytorch: \url{https://github.com/gram-ai/capsule-networks}
+	\item Keras: \url{https://github.com/XifengGuo/CapsNet-Keras}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Further research}
+\begin{itemize}
+	\item ICLR 2018 blind submission - Matrix Capsules With EM Routing \footnote{https://openreview.net/pdf?id=HJWLfGWRb}
+	\begin{itemize}
+		\item Uses a matrix instead of a vector as the instantiation parameters of a capsule
+		\item Uses the EM algorithm to iteratively update the coupling coefficients
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Technical slides - How PrimaryCaps is computed?}
+There are two ways to obtain a convolutional capsule from the output of a traditional convolution:
+\begin{itemize}
+	\item Perform 8 separate traditional convolutions (each with 32 filters), reshape the output of each of these convolutions to a tensor of \((32 * 6 * 6)x1\), and then concatenate all those tensors along the last axis to obtain a tensor of dimension \((32 * 6 * 6)x8\); the interpretation of this output is that there are \(32 * 6 * 6\) capsules, each being an \(8D\) vector.
+	\item Perform a single convolution with \(32 * 8\) filters and then reshape the output into a tensor of dimension \((32 * 6 * 6)x8\)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Technical slides - When is the routing procedure applied?}
+\begin{itemize}
+\item The routing procedure is applied when computing the feedforward activities through the network and only between the PrimaryCaps and DigitCaps layers. The coupling coefficients are determined by using the routing mechanism, for the backpropagation phase remaining only the transformation matrices \(W_{ij}\) to be computed. The training is done in a classical way, by using the Adam optimizer, the routing module being fully differentiable.
 \end{itemize}
 \end{frame}
 

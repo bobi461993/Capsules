@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex bbl format version 2.9 $
+% $ biblatex bbl format version 2.8 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -16,7 +16,106 @@
   {}
 \endgroup
 
-\datalist[entry]{nty/global//global/global}
+\sortlist[entry]{nty/global/}
+  \entry{DBLP:journals/corr/abs-1102-0183}{article}{}
+    \name{author}{5}{}{%
+      {{hash=CDC}{%
+         family={Ciresan},
+         familyi={C\bibinitperiod},
+         given={Dan\bibnamedelima C.},
+         giveni={D\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+      {{hash=MU}{%
+         family={Meier},
+         familyi={M\bibinitperiod},
+         given={Ueli},
+         giveni={U\bibinitperiod},
+      }}%
+      {{hash=MJ}{%
+         family={Masci},
+         familyi={M\bibinitperiod},
+         given={Jonathan},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=GLM}{%
+         family={Gambardella},
+         familyi={G\bibinitperiod},
+         given={Luca\bibnamedelima Maria},
+         giveni={L\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Schmidhuber},
+         familyi={S\bibinitperiod},
+         given={J{\"{u}}rgen},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CDC+1}
+    \strng{fullhash}{CDCMUMJGLMSJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \verb{eprint}
+    \verb 1102.0183
+    \endverb
+    \field{title}{High-Performance Neural Networks for Visual Object
+  Classification}
+    \verb{url}
+    \verb http://arxiv.org/abs/1102.0183
+    \endverb
+    \field{volume}{abs/1102.0183}
+    \field{journaltitle}{CoRR}
+    \field{eprinttype}{arXiv}
+    \field{year}{2011}
+  \endentry
+
+  \entry{LeCun:2004:LMG:1896300.1896315}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=LY}{%
+         family={LeCun},
+         familyi={L\bibinitperiod},
+         given={Yann},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=HFJ}{%
+         family={Huang},
+         familyi={H\bibinitperiod},
+         given={Fu\bibnamedelima Jie},
+         giveni={F\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=BL}{%
+         family={Bottou},
+         familyi={B\bibinitperiod},
+         given={L{\'e}on},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE Computer Society}%
+    }
+    \strng{namehash}{LYHFJBL1}
+    \strng{fullhash}{LYHFJBL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{booktitle}{Proceedings of the 2004 IEEE Computer Society Conference
+  on Computer Vision and Pattern Recognition}
+    \field{pages}{97\bibrangedash 104}
+    \field{series}{CVPR'04}
+    \field{title}{Learning Methods for Generic Object Recognition with
+  Invariance to Pose and Lighting}
+    \verb{url}
+    \verb http://dl.acm.org/citation.cfm?id=1896300.1896315
+    \endverb
+    \list{location}{1}{%
+      {Washington, D.C., USA}%
+    }
+    \field{year}{2004}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
   \entry{affNIST}{misc}{}
     \name{author}{1}{}{%
       {{hash=auA}{%
@@ -34,5 +133,40 @@
     \field{sortinit}{U}
     \field{sortinithash}{U}
   \endentry
-\enddatalist
+
+  \entry{DBLP:journals/corr/abs-1301-3557}{article}{}
+    \name{author}{2}{}{%
+      {{hash=ZMD}{%
+         family={Zeiler},
+         familyi={Z\bibinitperiod},
+         given={Matthew\bibnamedelima D.},
+         giveni={M\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+      {{hash=FR}{%
+         family={Fergus},
+         familyi={F\bibinitperiod},
+         given={Rob},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ZMDFR1}
+    \strng{fullhash}{ZMDFR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \verb{eprint}
+    \verb 1301.3557
+    \endverb
+    \field{title}{Stochastic Pooling for Regularization of Deep Convolutional
+  Neural Networks}
+    \verb{url}
+    \verb http://arxiv.org/abs/1301.3557
+    \endverb
+    \field{volume}{abs/1301.3557}
+    \field{journaltitle}{CoRR}
+    \field{eprinttype}{arXiv}
+    \field{year}{2013}
+  \endentry
+\endsortlist
 \endinput
